@@ -1,102 +1,114 @@
-<h1 align="center">🌿 YOLO Agricultural Disease Detection</h1>
+<h1 align="center">🌿 YOLO Cocoa Disease Detection</h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Model-YOLO-green?style=for-the-badge" alt="YOLO">
   <img src="https://img.shields.io/badge/Framework-PyTorch-red?style=for-the-badge" alt="PyTorch">
-  <img src="https://img.shields.io/badge/Field-AgriTech-blue?style=for-the-badge" alt="AgriTech">
+  <img src="https://img.shields.io/badge/Object_Detection-Cocoa_Pods-brown?style=for-the-badge" alt="Cocoa">
 </p>
 
 <hr>
 
-<h2>🖼️ Visual Results & Performance</h2>
+<h2>🖼️ Model Inference Preview</h2>
+<p>Below is a comparison between a sample raw test image and the model's prediction identifying the cocoa pod status.</p>
 
 <p align="center">
   <table width="100%">
     <tr>
-      <td align="center"><b>Original Raw Image</b></td>
-      <td align="center"><b>Model Prediction (Inference)</b></td>
+      <td align="center" width="50%"><b>Original Test Image</b></td>
+      <td align="center" width="50%"><b>YOLO Detection Result</b></td>
     </tr>
     <tr>
-      <td><img src="Data/sample_raw.jpg" alt="Raw Data" width="100%"></td>
-      <td><img src="Test_predictions/sample_pred.jpg" alt="Prediction" width="100%"></td>
+      <td><img src="Test/healthy_cocoa_pod_tree_07bf36b0ed.jpg" alt="Raw Cocoa Pod" width="100%"></td>
+      <td><img src="Test_Predictions/healthy_cocoa_pod_tree_07bf36b0ed_2.jpg" alt="Detected Cocoa Pod" width="100%"></td>
     </tr>
   </table>
 </p>
 
-<h3>📈 Performance Metrics</h3>
+<hr>
+
+<h2>📈 Performance Metrics</h2>
+<p>The model evaluation is based on standard object detection metrics, focusing on the balance between precision and recall.</p>
+
 <p align="center">
-  <img src="metric_charts/results.png" alt="Training Metrics" width="90%">
+  <table width="100%">
+    <tr>
+      <td align="center" width="50%"><b>F1-Score Curve</b></td>
+      <td align="center" width="50%"><b>mAP@50</b></td>
+    </tr>
+    <tr>
+      <td><img src="metric_charts/F1-score.png" alt="F1 Score" width="100%"></td>
+      <td><img src="metric_charts/mAP50.png" alt="mAP 50" width="100%"></td>
+    </tr>
+  </table>
 </p>
 
 
 
 <hr>
 
-<h2>📂 Detailed Directory Breakdown</h2>
+<h2>📂 Detailed Directory Descriptions</h2>
 
 <table width="100%">
-  <tr>
-    <th width="25%">Directory</th>
-    <th width="75%">Technical Description</th>
-  </tr>
-  <tr>
-    <td><b>📁 Data</b></td>
-    <td><b>Source Dataset:</b> Contains the original, unedited imagery categorized into <code>fito</code>, <code>monilia</code>, and <code>sana</code> (healthy). This serves as the ground-truth reference before any preprocessing or augmentation.</td>
-  </tr>
-  <tr>
-    <td><b>📁 Images</b></td>
-    <td><b>Processed Visuals:</b> Images here are resized and formatted for the YOLO architecture. Divided into <code>/train</code> and <code>/val</code> folders to prevent data leakage during the learning phase.</td>
-  </tr>
-  <tr>
-    <td><b>📁 Labels</b></td>
-    <td><b>Annotation Files:</b> Contains <code>.txt</code> files for every image in the <i>Images</i> folder. Each file follows the YOLO format: <code><class_id> <x_center> <y_center> <width> <height></code>.</td>
-  </tr>
-  <tr>
-    <td><b>📁 metric_charts</b></td>
-    <td><b>Analytics Hub:</b> Houses generated plots including the Confusion Matrix (to see misclassifications between Fito and Monilia), F1-Score curves, and Precision-Recall charts.</td>
-  </tr>
-  <tr>
-    <td><b>📁 Models</b></td>
-    <td><b>Weights Library:</b> 
-      <ul>
-        <li><code>best.pt</code>: The weights that achieved the highest mAP (mean Average Precision).</li>
-        <li><code>last.pt</code>: The state of the model at the final epoch.</li>
-      </ul>
-    </td>
-  </tr>
-  <tr>
-    <td><b>📁 runs</b></td>
-    <td><b>Training Logs:</b> The raw output of the Ultralytics training engine. Includes per-epoch loss values (box_loss, cls_loss, dfl_loss) and hyperparameters used.</td>
-  </tr>
-  <tr>
-    <td><b>📁 Test</b></td>
-    <td><b>Hold-out Dataset:</b> A curated set of images that the model never saw during training or validation, used to calculate the real-world generalization error.</td>
-  </tr>
-  <tr>
-    <td><b>📁 Test_predictions</b></td>
-    <td><b>Inference Output:</b> The final visual proof of the model's capability. Images here show bounding boxes with confidence scores for the three target classes.</td>
-  </tr>
+  <thead>
+    <tr>
+      <th align="left" width="20%">Directory</th>
+      <th align="left">Description & Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>📁 Data</b></td>
+      <td><b>Raw Data Source:</b> Contains the original dataset categorized into <code>fito</code> (Phytophthora), <code>monilia</code> (Moniliophthora roreri), and <code>sana</code> (healthy). This is the baseline data before any split or augmentation.</td>
+    </tr>
+    <tr>
+      <td><b>📁 Images</b></td>
+      <td><b>Neural Network Inputs:</b> Features the processed image set split into <code>train</code> and <code>val</code> (validation) subfolders. These images are scaled and prepared for the YOLO training pipeline.</td>
+    </tr>
+    <tr>
+      <td><b>📁 Labels</b></td>
+      <td><b>Ground Truth Annotations:</b> Contains <code>.txt</code> files for every image in the dataset. Each file uses the YOLO format specifying the class index and normalized bounding box coordinates.</td>
+    </tr>
+    <tr>
+      <td><b>📁 metric_charts</b></td>
+      <td><b>Performance Analytics:</b> A repository of visual assessments including <i>F1-Score</i>, <i>mAP50</i>, and loss curves used to diagnose model convergence and accuracy.</td>
+    </tr>
+    <tr>
+      <td><b>📁 Models</b></td>
+      <td><b>Saved Weights:</b>
+        <ul>
+          <li><code>best.pt</code>: The model weights that yielded the highest accuracy on validation data.</li>
+          <li><code>last.pt</code>: The final state of the model after the last epoch.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><b>📁 runs</b></td>
+      <td><b>Epoch Logs:</b> Detailed output from the Ultralytics training engine. It captures the technical heartbeat of each epoch, including bounding box loss and classification loss.</td>
+    </tr>
+    <tr>
+      <td><b>📁 Test</b></td>
+      <td><b>Evaluation Set:</b> A dedicated folder for images used to test the model's real-world generalization capability after training is complete.</td>
+    </tr>
+    <tr>
+      <td><b>📁 Test_predictions</b></td>
+      <td><b>Inference Results:</b> Stores the visual output of the model. These images include bounding boxes, class labels, and confidence percentages.</td>
+    </tr>
+  </tbody>
 </table>
 
 <hr>
 
-<h2>📝 Core Implementation</h2>
-
-<p>The entire logic for this project is contained within:</p>
+<h2>💻 Technical Implementation</h2>
+<p>The core logic of the project is implemented in <b><code>YOLO_Deep_Learning.ipynb</code></b>. This notebook covers:</p>
 <ul>
-  <li><b><code>YOLO_Deep_Learning.ipynb</code></b>: A comprehensive Jupyter Notebook that covers environment setup, data YAML configuration, model instantiation, training, and automated plotting of results.</li>
+  <li>Configuration of the environment and YAML data pointers.</li>
+  <li>Training the YOLO model on custom cocoa pod data.</li>
+  <li>Executing inference on the test dataset.</li>
+  <li>Exporting evaluation metrics for analysis.</li>
 </ul>
 
 <hr>
 
-<h2>🚀 How to Use</h2>
-
-<ol>
-  <li>Clone this repository.</li>
-  <li>Install dependencies: <code>pip install ultralytics</code></li>
-  <li>Open <code>YOLO_Deep_Learning.ipynb</code> and run the cells to perform inference using <code>Models/best.pt</code>.</li>
-</ol>
-
 <p align="center">
-  <b>Developed for Precision Agriculture & Disease Management</b>
+  <b>Developed for Precision Cocoa Farming & Disease Prevention</b>
 </p>
