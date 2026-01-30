@@ -1,0 +1,6 @@
+
+train: /content/drive/MyDrive/yolo_cocoa/images/train
+val: /content/drive/MyDrive/yolo_cocoa/images/val
+
+nc: 3
+names: ['Fito','Monilia','Sana']
